@@ -1,0 +1,30 @@
+% Enter your MATLAB code below
+myTable = thingSpeakRead(1120174,'numpoints',24,...
+    'outputformat','timetable')
+sarray = string(myTable.LCErrorStatus)
+
+imageSizeX = 640;
+imageSizeY = 480;
+[columnsInImage rowsInImage] = meshgrid(1:imageSizeX, 1:imageSizeY);
+% Next create the circle in the image.
+centerX = 320;
+centerY = 240;
+radius = 100;
+circlePixels = (rowsInImage - centerY).^2 ...
+    + (columnsInImage - centerX).^2 <= radius.^2;
+% circlePixels is a 2D "logical" array.
+% Now, display it.
+image(circlePixels) ;
+for i = 1:size(myTable,1)
+    myResults(i,:) = strsplit(sarray(i),' ');
+    
+end
+myResults
+if (str2double(myResults) > 0 )
+         colormap ([1 1 1; .9 0 0]);
+    else
+        colormap ([1 1 1; 0 .7 0]);
+    end
+set(gca,'xtick',[])
+set(gca,'ytick',[])
+title('F4 LC Error Status Alert');

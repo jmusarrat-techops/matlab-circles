@@ -1,0 +1,26 @@
+% Enter your MATLAB code below
+
+myTable = thingSpeakRead(1173230,'numpoints',1,...
+    'outputformat','timetable')
+sarray = string(myTable.LCErrorStatus)
+for i = 1:size(myTable,1)
+    myResults(i,:) = strsplit(sarray(i),' ');
+    
+end
+
+var1 = str2double(myResults(:,1));
+var2 = str2double(myResults(:,2));
+var1
+var2
+
+if (var1 > 0 | var2 > 0)
+         plot( 1, 1, '.r', 'MarkerSize',300)
+else
+        plot( 1, 1, '.g', 'MarkerSize',300)
+end
+
+
+
+set(gca,'xtick',[])
+set(gca,'ytick',[])
+title('LC Error Alert');
